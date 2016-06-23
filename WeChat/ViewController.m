@@ -17,6 +17,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
+    [super viewDidLoad];
+    [NSThread sleepForTimeInterval:3.0];
 }
 
 - (void)didReceiveMemoryWarning {
