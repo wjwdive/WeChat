@@ -6,8 +6,7 @@
 //  Copyright © 2016年 wjwdive. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-
-@interface WCOtherLoginViewController : UIViewController
+#import "WCBaseLoginViewController.h"
+@interface WCOtherLoginViewController : WCBaseLoginViewController
 
 @end

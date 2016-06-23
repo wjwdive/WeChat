@@ -30,7 +30,11 @@ typedef void (^XMPPResultBlock)(XMPPResultType type);
 /**
  *  用户注销
  */
-
 - (void)xmppUserLogout;
+
+/**
+ *  用户注册
+ */
+- (void)xmppUserRegister:(XMPPResultBlock)resultBlock;
 @end
 
