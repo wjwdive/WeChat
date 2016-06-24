@@ -29,11 +29,13 @@
     //登录之前给个提示 必须有后面的参数 否则 loading  不在屏幕中间
     [MBProgressHUD showMessage:@"正在登录中..." toView:self.view];
     
+    
     //block 里面有 self 的时候  就要用弱引用 否则 会出现循环引用
     __weak typeof(self) selfVc = self;
     
     //app 是 AppDelegate 的类
     AppDelegate *app = [UIApplication sharedApplication].delegate;
+    app.registerOperation = NO;
     [app xmppUserLogin:^(XMPPResultType type){
         //调用处理登录结果的方法
         [selfVc handleResultType:type];

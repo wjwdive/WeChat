@@ -63,7 +63,13 @@
      */
 //    NSString *user = [[NSUserDefaults standardUserDefaults] objectForKey:@"user"];
     //重构 从单例 获取用户名
-    NSString *user = [WCUserInfo sharedWCUserInfo].user;
+    NSString *user = nil;
+    if (self.registerOperation) {
+        user = [WCUserInfo sharedWCUserInfo].registerUser;
+    }else{
+        user = [WCUserInfo sharedWCUserInfo].user;
+    }
+    
 //    NSString *userComplate = [NSString stringWithFormat:user,@"@wjw.local"];
     
     //设置JID
@@ -114,8 +120,14 @@
 - (void)xmppStreamDidConnect:(XMPPStream *)sender {
     WCLog(@"与主机连接成功");
     
-    //主机连接成功后，发送密码进行授权
-    [self sendPwdToHost];
+    if (self.registerOperation) {//注册的操作 发送注册的密码
+        NSString *pwd = [WCUserInfo sharedWCUserInfo].registerPwd;
+        [_xmppStream registerWithPassword:pwd error:nil];
+    }else{//登录操作
+        //主机连接成功后，发送密码进行授权
+        [self sendPwdToHost];
+    }
+    
 }
 
 #pragma mark 与主机断开连接
@@ -137,12 +149,6 @@
     if(_resultBlock){
         _resultBlock(XMPPResultTypeLoginSuccess);
     }
-    
-    
-    
-   
-    
-    
 }
 
 #pragma mark 授权失败
@@ -151,6 +157,21 @@
     //判断 result 有无值，再回调给登录控制器
     if (_resultBlock) {
         _resultBlock(XMPPResultTypeLonginFailure);
+    }
+}
+#pragma mark - 注册成功
+- (void)xmppStreamDidRegister:(XMPPStream *)sender {
+    WCLog(@"注册成功");
+    if(_resultBlock){
+        _resultBlock(XMPPResultTypeRegisterSuccess);
+    }
+}
+
+#pragma mark - 注册失败
+- (void)xmppStream:(XMPPStream *)sender didNotRegister:(DDXMLElement *)error {
+    WCLog(@"注册失败:%@",error);
+    if (_resultBlock) {
+        _resultBlock(XMPPResultTypeRegisterFailure);
     }
 }
 
@@ -185,6 +206,21 @@
     
     //连接主机 成功后发送密码
     [self connectToHost];
+}
+
+/**
+ *  用户注册
+ */
+- (void)xmppUserRegister:(XMPPResultBlock)resultBlock{
+    //先把 block存起来
+    _resultBlock = resultBlock;
+    
+    //如果以前连接过服务器，要断开(这里登录之前都断开一次)
+    [_xmppStream disconnect];
+    
+    //连接主机 成功后发送注册的密码
+    [self connectToHost];
+    
 }
 
 

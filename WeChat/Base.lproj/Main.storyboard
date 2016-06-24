@@ -141,14 +141,14 @@
                                 <rect key="frame" x="447" y="7" width="133" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="注销"/>
+                                <connections>
+                                    <action selector="logoutBtnClick:" destination="tiJ-Ri-ln8" eventType="touchUpInside" id="5x8-gq-pO4"/>
+                                </connections>
                             </button>
-                            <connections>
-                                <action selector="logoutBtnClick:" destination="tiJ-Ri-ln8" id="4n9-9D-xod"/>
-                            </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="logoutBtnClick" destination="ISo-Kx-jQd" id="obd-mG-lO8"/>
+                        <outlet property="logoutBtnClick" destination="ISo-Kx-jQd" id="TaE-dh-JrD"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XAd-Gw-vSu" userLabel="First Responder" sceneMemberID="firstResponder"/>

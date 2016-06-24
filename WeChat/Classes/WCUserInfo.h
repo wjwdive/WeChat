@@ -20,6 +20,13 @@ singleton_interface(WCUserInfo);
  *  YES 登陆过/NO
  */
 @property(nonatomic,assign) BOOL loginStatus;
+
+/**
+ *  用户注册的用户名 密码
+ */
+@property(nonatomic,copy)NSString *registerUser;
+@property(nonatomic,copy)NSString *registerPwd;
+
 /**
  *  保存用户数据到沙盒
  */

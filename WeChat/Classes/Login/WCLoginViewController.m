@@ -20,9 +20,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    /*
+    
     //设置TextField 和 Btn 的样式
     self.pwdField.background = [UIImage stretchedImageWithName:@"operationbox_text"];
+    /*
        UIImageView *lockView = [[UIImageView alloc] init];
     lockView.bounds = CGRectMake(0, 0, 30, 30);
     lockView.image = [UIImage imageNamed:@"Card_Lock"];
@@ -31,7 +32,7 @@
     self.pwdField.leftView = lockView;
     */
     //TextField 的分类 一句代码搞定 textFiled 左图标
-    [self.pwdField addLeftViewWithImage:@"operationbox_text"];
+    [self.pwdField addLeftViewWithImage:@"Card_Lock"];
     [self.loginBtn setResizeN_BG:@"fts_green_btn" H_BG:@"fts_green_btn_HL"];
     
     //设置用户名为上次登录的用户名
