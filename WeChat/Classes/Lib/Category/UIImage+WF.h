@@ -1,15 +1,16 @@
 //
 //  UIImage+WF.h
-//  WeiXin
+//  WeChat
 //
-//  Created by Yong Feng Guo on 14-11-19.
-//  Copyright (c) 2014年 Fung. All rights reserved.
+//  Created by wjw on 16/6/30.
+//  Copyright © 2016年 wjwdive. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 
 @interface UIImage (WF)
-
+//判断一个图片是PNG 类型还是 JPG 类型
++ (NSString *)typeOfImage:(NSData *)imageData;
 /**
  *返回中心拉伸的图片
  */

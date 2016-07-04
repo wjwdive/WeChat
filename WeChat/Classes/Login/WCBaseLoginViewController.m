@@ -7,7 +7,7 @@
 //
 
 #import "WCBaseLoginViewController.h"
-#import "AppDelegate.h"
+//#import "AppDelegate.h"
 
 @implementation WCBaseLoginViewController
 
@@ -34,10 +34,14 @@
     __weak typeof(self) selfVc = self;
     
     //app 是 AppDelegate 的类
-    AppDelegate *app = [UIApplication sharedApplication].delegate;
-    app.registerOperation = NO;
-    [app xmppUserLogin:^(XMPPResultType type){
+//    AppDelegate *app = [UIApplication sharedApplication].delegate;
+//    app.registerOperation = NO;
+    
+    //重构 后  用WCXMPPTool
+    [WCXMPPTool sharedWCXMPPTool].registerOperation = NO;
+    [[WCXMPPTool sharedWCXMPPTool] xmppUserLogin:^(XMPPResultType type){
         //调用处理登录结果的方法
+        WCLog(@"login");
         [selfVc handleResultType:type];
     }];
     
@@ -55,7 +59,7 @@
                 //此方法是在子线程中被调用的，所以要在主线程中刷新UI
                 [self enterMainPage];
                 break;
-            case XMPPResultTypeLonginFailure:
+            case XMPPResultTypeLoninFailure:
                 NSLog(@"登录失败");
                 [MBProgressHUD showError:@"用户名或密码错误" toView:self.view];
                 break;

@@ -7,11 +7,14 @@
 //
 
 #import "WCUserInfo.h"
+
 #define UserKey @"user"
 #define PwdKey @"pwd"
 #define LoginStatusKey @"LoginStatus"
+
 @implementation WCUserInfo
-singleton_implementation(WCUserInfo);
+
+singleton_implementation(WCUserInfo)
 
 //保存用户数据到沙盒
 - (void)saveUserInfoToSandbox{
@@ -31,5 +34,9 @@ singleton_implementation(WCUserInfo);
     self.user = [defaults objectForKey:UserKey];
     self.pwd = [defaults objectForKey:PwdKey];
     self.loginStatus = [defaults objectForKey:LoginStatusKey];
+}
+
+-(NSString *)jid {
+    return [NSString stringWithFormat:@"%@@%@",self.user,domain];
 }
 @end

@@ -7,7 +7,7 @@
 //
 
 #import "WCOtherLoginViewController.h"
-#import "AppDelegate.h"
+//#import "AppDelegate.h"
 
 @interface WCOtherLoginViewController ()
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *leftConstraint;
@@ -36,7 +36,6 @@
     self.pwdField.background = [UIImage imageNamed:@"operationbox_text"];
     
     [self.loginBtn setResizeN_BG:@"fts_green_btn" H_BG:@"fts_green_btn_HL"];
-    
     
 }
 - (IBAction)cancle:(id)sender {
@@ -75,56 +74,6 @@
     
     
 }
-
-//- (void)handleResultType:(XMPPResultType)type {
-//    //主线程刷新UI
-//    dispatch_async(dispatch_get_main_queue(), ^{
-//        [MBProgressHUD hideHUDForView:self.view];
-//        switch (type) {
-//            case XMPPResultTypeLoginSuccess:
-//                NSLog(@"登录成功");
-//                //登陆成功来到主界面
-//                //此方法是在子线程中被调用的，所以要在主线程中刷新UI
-//                [self enterMainPage];
-//                break;
-//            case XMPPResultTypeLonginFailure:
-//                NSLog(@"登录失败");
-//                [MBProgressHUD showError:@"用户名或密码错误" toView:self.view];
-//                break;
-//            case XMPPResultTypeNetErr:
-//                NSLog(@"网络不给力");
-//                [MBProgressHUD showError:@"网络不给力" toView:self.view];
-//                break;
-//            default:
-//                break;
-//        }
-//    });
-//}
-//
-////登陆成功来到主界面
-////此方法是在子线程中被调用的，所以要在主线程中刷新UI
-//- (void)enterMainPage {
-//    //更改用户的登录状态为 YES
-//    [WCUserInfo sharedWCUserInfo].loginStatus = YES;
-//    
-//    //把用户登录成功的数据保存到沙盒
-//    [[WCUserInfo sharedWCUserInfo] saveUserInfoToSandbox];
-//    
-//    
-//    dispatch_async(dispatch_get_main_queue(), ^{
-//        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-//        //                  self.window.rootViewController = storyboard.instantiateInitialViewController;
-//        self.view.window.rootViewController = storyboard.instantiateInitialViewController;
-//        
-//        //隐藏模态窗口 (如果显示了 模态窗口，一定要dismiss 否则 dealloc不执行 该控制器不会销毁 会造成内存泄露)
-//        [self dismissViewControllerAnimated:NO completion:nil];
-//
-//    });
-//    
-//}
-
-
-
 
 
 - (void)dealloc {

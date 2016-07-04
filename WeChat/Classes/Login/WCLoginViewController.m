@@ -7,8 +7,10 @@
 //
 
 #import "WCLoginViewController.h"
+#import "WCRegisterViewController.h"
+#import "WCNavigationController.h"
 
-@interface WCLoginViewController ()
+@interface WCLoginViewController ()<WCRegisterViewControllerDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *userLabel;
 @property (weak, nonatomic) IBOutlet UITextField *pwdField;
 @property (weak, nonatomic) IBOutlet UIButton *loginBtn;
@@ -18,6 +20,7 @@
 @implementation WCLoginViewController
 
 - (void)viewDidLoad {
+    
     [super viewDidLoad];
     
     
@@ -50,6 +53,32 @@
     userInfo.pwd = self.pwdField.text;
     //调用父类的登录
     [super login];
+}
+
+//连线 点击“其他方式登录” present Modely 推出 “其他方式登录界面”。跳转之前，通过segue 判断跳转的目标控制器是否是 nav 控制器，再判断是否是注册控制器，如果是，则设置代理。如果不是，那就是点击的其他按钮，如登录，注册。。。   好好理解。。。。
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    //获取注册控制器
+    id destVc = segue.destinationViewController;
+    if ([destVc isKindOfClass:[WCNavigationController class]]) {
+        
+        WCNavigationController *nav = destVc;
+        //判断 栈顶控制器 是否是注册控制器
+        if ([nav.topViewController isKindOfClass:[WCRegisterViewController class]]) {
+            WCRegisterViewController *registerVc = (WCRegisterViewController *)nav.topViewController;
+            //设置注册控制器的代理
+            registerVc.delegate = self;
+        }
+    }
+    //设置注册控制器的代理
+}
+
+#pragma mark -- 代理方法
+- (void)registerViewControllerDidFinishRegister {
+    WCLog(@"完成注册");
+    //完成注册 userLabel 显示注册的用户名
+    self.userLabel.text = [WCUserInfo sharedWCUserInfo].registerUser;
+    //提示
+    [MBProgressHUD showSuccess:@"请重新输入密码进行登录" toView:self.view];
 }
 
 - (void)didReceiveMemoryWarning {

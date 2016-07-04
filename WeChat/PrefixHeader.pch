@@ -14,7 +14,9 @@
 #import <UIKit/UIKit.h>
 #import "CategoryWF.h"
 #import "MBProgressHUD+HM.h"
+#import "WCXMPPTool.h"
 #import "WCUserInfo.h"
+
 
 //自定义Log
 #ifdef DEBUG

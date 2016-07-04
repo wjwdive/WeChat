@@ -8,20 +8,48 @@
 
 #import "WCMeViewController.h"
 #import "AppDelegate.h"
+#import "XMPPvCardTemp.h"
 @interface WCMeViewController ()
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *logoutBtnClick;
+//头像
+@property (weak, nonatomic) IBOutlet UIImageView *headerView;
+//昵称
+@property (weak, nonatomic) IBOutlet UILabel *nickNameLabel;
+//微信号
+@property (weak, nonatomic) IBOutlet UILabel *weixinNumLabel;
 
 @end
 
 @implementation WCMeViewController
 - (IBAction)logoutBtnClick:(id)sender {
     //直接调用 appdelegate 的注销方法
-    AppDelegate *app = [UIApplication sharedApplication].delegate;
-    [app xmppUserLogout];
+//    AppDelegate *app = [UIApplication sharedApplication].delegate;
+//    [app xmppUserLogout];
+    //修改后用WCXMPPTool 的方法
+    [[WCXMPPTool sharedWCXMPPTool] xmppUserLogout];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    //如何使用CoreData 获取数据
+    //1.上下文 【关联到数据】
+    //2.FetchRequest
+    //3.设置过滤和排序
+    //4.执行请求获取数据
+    
+    //xmpp 提供了一个方法，直接获取个人信息
+    XMPPvCardTemp *myVcard = [WCXMPPTool sharedWCXMPPTool].vCard.myvCardTemp;
+    //设置头像
+    if(myVcard.photo){
+        self.headerView.image = [UIImage imageWithData:myVcard.photo];
+    }
+    //设置昵称
+    self.nickNameLabel.text = myVcard.nickname;
+    //设置微信号
+    NSString *user = [WCUserInfo sharedWCUserInfo].user;
+    self.weixinNumLabel.text = [NSString stringWithFormat:@"微信号:%@",user];
+    
     
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -39,12 +67,12 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
 #warning Incomplete implementation, return the number of sections
-    return 0;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 #warning Incomplete implementation, return the number of rows
-    return 0;
+    return 1;
 }
 
 /*
